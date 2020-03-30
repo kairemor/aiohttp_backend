@@ -1,6 +1,7 @@
 from aiohttp import web
 from covid import Covid
 import aiohttp_cors
+import os 
 
 covid = Covid()
 
@@ -49,4 +50,5 @@ for route in list(app.router.routes()):
     cors.add(route)
 
 if __name__ == '__main__':
-    web.run_app(app)
+    #web.run_app(app)
+    web.run_app(app, port=os.getenv('PORT'))
