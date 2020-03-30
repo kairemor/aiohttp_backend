@@ -13,12 +13,10 @@ async def handle(request):
 
 async def get_data(request):
     data =  covid.get_data()
-    print(data)
     return web.json_response(data)
 
 async def get_country(request):
     id = request.match_info.get('id', 147)
-    print(id)
     country = covid.get_status_by_country_id(id)
     return web.json_response(country)
 
