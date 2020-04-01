@@ -20,6 +20,11 @@ async def get_country(request):
     country = covid.get_status_by_country_id(id)
     return web.json_response(country)
 
+async def get_country_by_name(request):
+    name = request.match_info.get('name', 'senegal')
+    country = covid.get_status_by_country_name(name)
+    return web.json_response(country)
+
 async def get_all_data(request):
     active = covid.get_total_active_cases()
     confirmed = covid.get_total_confirmed_cases()
@@ -34,7 +39,9 @@ app.add_routes([web.get('/', handle),
                 web.get('/country_data/all', get_data),
                 web.get('/data/all', get_all_data),
                 web.get('/country_data/country', get_country),
-                web.get('/country_data/country/{id}', get_country)
+                web.get('/country_data/country/{id}', get_country),
+                web.get('/country_data/country_name/', get_country_by_name),
+                web.get('/country_data/country_name/{name}', get_country_by_name)
                 ])
 cors = aiohttp_cors.setup(app, defaults={
     "*": aiohttp_cors.ResourceOptions(
